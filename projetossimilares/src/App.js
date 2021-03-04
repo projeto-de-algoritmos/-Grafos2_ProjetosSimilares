@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import './App.css';
-import constructGraph from './utils/constructGraph';
+import constructBipartiteGraph from './utils/constructBipartiteGraph';
 import axios from 'axios';
 
 function App() {
@@ -65,7 +65,7 @@ function App() {
       languages = Object.keys(response.data);
       mappedRepos.push({name: repo.name, languages: languages})
     }
-    constructGraph(mappedRepos);
+    constructBipartiteGraph(mappedRepos);
   }
 
   return (

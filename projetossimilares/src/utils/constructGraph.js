@@ -1,80 +1,35 @@
-import renderGraph from './renderGraph';
-
-function compareName(a, b) {
-  if (a.name < b.name) {
-    return -1;
-  }
-  if (a.name > b.name) {
-    return 1;
-  }
-  return 0;
-}
-
-function compareValue(a, b) {
-  if (a.value < b.value) {
-    return -1;
-  }
-  if (a.value > b.value) {
-    return 1;
-  }
-  return 0;
-}
-
-const adjListLanguages = new Map();
-const adjListRepos = new Map();
+// Funções de criação de grafo
+const adjList = new Map();
+const edgesWeight = new Map();
 
 function addNode(repo) {
-  adjListRepos.set(repo.name, []);
-  for (let language of repo.languages) {
-    if(!adjListLanguages.get(language)){
-      adjListLanguages.set(language, []);
-    }
-    addEdge(repo.name, language);
-  }
+    adjList.set(repo, []);
 }
 
 function addEdge(origin, destination) {
-  adjListRepos.get(origin).push(destination);
-  adjListLanguages.get(destination).push(origin);
+  adjList.get(origin).push(destination);
+  adjList.get(destination).push(origin);
 }
 
-function render() {
-  const graphOfLanguages = Array.from(adjListLanguages, ([name, value]) => ({ name, value })).sort(compareName);
-  const graphOfRepos = Array.from(adjListRepos, ([name, value]) => ({ name, value })).sort(compareValue);
-  let edgesArray = [];
-  const languagesNodes = graphOfLanguages
-    .filter(repo => repo.name)
-    .map(repo => { return { data: { id: repo.name }, style: { 'background-color': '#531e5e' } } });
+// function addEdgeWeight(origin, destination){
+//   const sortedName = sort([origin, destination]); 
+// }
 
-  const reposNodes = graphOfRepos
-    .map(repo => { return { data: { id: repo.name } } });
-
-  graphOfRepos
-    .filter(repo => repo.value[0] !== null)
-    .forEach(repo => {
-      edgesArray = edgesArray.concat((
-        repo.value.map(language => {
-          return {
-            data: {
-              id: `${repo.name}-${language}`,
-              source: repo.name,
-              target: language
-            }
-          }
-        })
-      ));
-      
-    })
-
-  const elements = [...languagesNodes, ...reposNodes, ...edgesArray];
-  renderGraph({ elements });
+function addAllEdges(reposArray){
+  for(let i=0; i< reposArray.length; i++){
+    for(let j=i+1; j<reposArray.length; j++){
+      addEdge(reposArray[i], reposArray[j]);
+    }
+  }
 }
 
-function constructGraph(arrayOfRepos) {
-  arrayOfRepos.forEach(addNode);
-  console.log(adjListLanguages);
-  console.log(adjListRepos);
-  render();
+function constructGraph({adjListLanguages, adjListRepos}){
+  const repoNames = Array.from(adjListRepos.keys());
+  repoNames.forEach(repo => addNode(repo));
+
+  const reposInLanguages = Array.from(adjListLanguages.values());
+  reposInLanguages.forEach(repos => addAllEdges(repos));
+  console.log(adjList);
 }
 
 export default constructGraph;
