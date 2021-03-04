@@ -1,7 +1,6 @@
-# Projetos Similares
+# Projetos Similares (parte 2)
 
-**Número da Lista**: não se aplica.<br>
-**Conteúdo da Disciplina**: Grafos 1<br>
+**Conteúdo da Disciplina**: Grafos 2<br>
 
 ## Alunos
 |Matrícula | Aluno |
@@ -10,7 +9,11 @@
 | 18/0025601 |  Murilo Gomes de Souza |
 
 ## Sobre 
-O objetivo desse projeto é a avaliação de projetos similares em Organizações do Github, através da representação na forma de um grafo bipartido conectando os repositórios de determinada organização às linguagens utilizadas por eles.
+Esse projeto é uma evolução do [primeiro trabalho de Projeto de Algoritmos](https://github.com/projeto-de-algoritmos/Grafos1_ProjetosSimilares).
+
+O objetivo desse projeto é a avaliação de projetos similares em Organizações do Github na forma de grafos. Desse modo, os repositórios são representados como nós e as arestas são as linguagens que esses repositórios podem ter em comum.
+
+Após gerar o grafo, é possível gerar sua **Árvore Geradora Mínima** para verificar quais repositórios tem mais linguagens em comum.
 
 ## Screenshots
 ![Foto Vazia](./images/vazia.png) <br> <br>
@@ -37,7 +40,7 @@ git clone https://github.com/projeto-de-algoritmos/Grafos1_ProjetosSimilares
 
 2. Entre na pasta do projeto:
 ```
-cd Grafos1_ProjetosSimilares/projetossimilares
+cd -Grafos2_ProjetosSimilares/projetossimilares
 ```
 
 3. Instale as dependências do projeto:
