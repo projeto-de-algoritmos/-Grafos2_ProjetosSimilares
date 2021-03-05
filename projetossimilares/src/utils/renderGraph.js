@@ -13,7 +13,7 @@ const renderGraph = (props) => cytoscape({
       {
         selector: 'node',
         style: {
-          'background-color': '#70a4bc',
+          'background-color': '#531e5e',
           'label': 'data(id)'
         }
       },
@@ -39,7 +39,7 @@ const renderGraph = (props) => cytoscape({
       sweep: undefined, // how many radians should be between the first and last node (defaults to full circle)
       clockwise: true, // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
       equidistant: false, // whether levels have an equal radial distance betwen them, may cause bounding box overflow
-      minNodeSpacing: 40, // min spacing between outside of nodes (used for radius adjustment)
+      minNodeSpacing: 100, // min spacing between outside of nodes (used for radius adjustment)
       boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
       avoidOverlap: true, // prevents node overlap, may overflow boundingBox if not enough space
       nodeDimensionsIncludeLabels: false, // Excludes the label when calculating node bounding boxes for the layout algorithm

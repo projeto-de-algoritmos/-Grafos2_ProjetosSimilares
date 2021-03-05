@@ -12,10 +12,10 @@ function addEdge(graph, origin, destination, weigth) {
     graph.get(destination).push(origin);
     let sortedName;
     if (origin < destination) {
-        sortedName = `${origin}${destination}`;
+        sortedName = `${origin}/${destination}`;
     }
     else {
-        sortedName = `${destination}${origin}`;
+        sortedName = `${destination}/${origin}`;
     }
     newWeigths.set(sortedName, weigth);
 }
@@ -84,8 +84,7 @@ function kruskalMST(graph, weights) {
             union(nodes[0], nodes[1]);
         }
     }
-    console.log(MST, newWeigths);
-    return MST;
+    return {MST, newWeigths};
 
 }
 
