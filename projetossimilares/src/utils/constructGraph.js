@@ -1,3 +1,5 @@
+import kruskalMST from './kruskal';
+
 // Funções de criação de grafo
 const adjList = new Map();
 const edgesWeight = new Map();
@@ -14,10 +16,10 @@ function addEdge(origin, destination) {
 function addEdgeWeight(origin, destination){
   let sortedName;
   if(origin<destination){
-    sortedName = `${origin}${destination}`;
+    sortedName = `${origin}/${destination}`;
   }
   else{
-    sortedName = `${destination}${origin}`;
+    sortedName = `${destination}/${origin}`;
   }
   if(edgesWeight.get(sortedName)){
     edgesWeight.set(sortedName, edgesWeight.get(sortedName)+1);
@@ -42,8 +44,9 @@ function constructGraph({adjListLanguages, adjListRepos}){
 
   const reposInLanguages = Array.from(adjListLanguages.values());
   reposInLanguages.forEach(repos => addAllEdges(repos));
-  console.log(adjList);
-  console.log(edgesWeight);
+  const MST = kruskalMST(adjList, edgesWeight);
+  //console.log(MST);
 }
+
 
 export default constructGraph;
