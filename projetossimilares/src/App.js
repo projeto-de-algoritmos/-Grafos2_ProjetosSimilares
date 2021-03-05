@@ -107,7 +107,7 @@ function App() {
             />
           </div>
 
-          <button type="submit" onClick={fetchData}>Gerar grafo</button>
+          <button type="submit" onClick={fetchData}>Gerar MST</button>
         </form>
       </div>
       <div id="cy"></div>
