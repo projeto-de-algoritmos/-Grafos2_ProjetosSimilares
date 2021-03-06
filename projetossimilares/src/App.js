@@ -9,6 +9,7 @@ function App() {
   const [inicialDate, setInicialDate] = useState('');
   const [finalDate, setFinalDate] = useState('');
   const [organization, setOrganization] = useState('');
+  const [githubToken, setGithubToken] = useState('');
 
   async function fetchData(e) {
     e.preventDefault();
@@ -105,6 +106,20 @@ function App() {
               value={finalDate}
               onChange={(e) => { setFinalDate(e.target.value) }}
             />
+          </div>
+          <div className="forminput">
+            <label htmlFor="githubToken">Token de acesso do Github:</label>
+            <input
+              type="password"
+              name="githubToken"
+              id="githubToken"
+              placeholder="Token do Github (Opcional)"
+              value={githubToken}
+              onChange={(e) => { setGithubToken(e.target.value) }}
+            />
+            <p>Máx. Repositórios sem Token: 60</p>
+            <p>Máx. Repositórios com Token: 5000</p>
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/settings/tokens">Crie seu token aqui.</a>
           </div>
 
           <button type="submit" onClick={fetchData}>Gerar MST</button>
