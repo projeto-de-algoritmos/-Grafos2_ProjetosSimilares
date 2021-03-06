@@ -13,7 +13,14 @@ function App() {
 
   async function fetchData(e) {
     e.preventDefault();
-    let response = await axios.get(`https://api.github.com/orgs/${organization}/repos?per_page=100`);
+    let response;
+    if(!githubToken){
+      response = await axios.get(`https://api.github.com/orgs/${organization}/repos?per_page=100`);
+    }
+    else {
+      const auth = 'token '.concat(githubToken);
+      response = await axios.get(`https://api.github.com/orgs/${organization}/repos?per_page=100`, { headers: { Authorization: auth } });
+    }
     let next;
     if (response.headers.link) {
       next = parseData(response.headers.link).next;
@@ -62,7 +69,14 @@ function App() {
       filteredRepos = repos;
     }
     for (let repo of filteredRepos) {
-      const response = await axios.get(repo.languages_url);
+      let response;
+      if(!githubToken){
+        response = await axios.get(repo.languages_url);
+      }
+      else{
+        const auth = 'token '.concat(githubToken);
+        response = await axios.get(repo.languages_url, { headers: { Authorization: auth } });
+      }
       languages = Object.keys(response.data);
       mappedRepos.push({name: repo.name, languages: languages})
     }
