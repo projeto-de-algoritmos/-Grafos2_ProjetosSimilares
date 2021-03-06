@@ -86,7 +86,14 @@ function constructGraph({ adjListLanguages, adjListRepos }) {
   const reposInLanguages = Array.from(adjListLanguages.values());
   reposInLanguages.forEach(repos => addAllEdges(repos));
   const { MST, newWeigths } = kruskalMST(adjList, edgesWeight);
+
+  const loader = document.getElementById("loader");
+  loader.classList.toggle("invisible");
+
   render(MST, newWeigths);
+  
+  const button = document.getElementById("gerar");
+  button.toggleAttribute("disabled");
 }
 
 export default constructGraph;

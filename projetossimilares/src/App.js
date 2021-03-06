@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import constructBipartiteGraph from './utils/constructBipartiteGraph';
 import axios from 'axios';
+import Loader from './components/Loader';
 
 function App() {
 
@@ -13,6 +14,10 @@ function App() {
 
   async function fetchData(e) {
     e.preventDefault();
+    const button = document.getElementById("gerar");
+    button.toggleAttribute("disabled");
+    const loader = document.getElementById("loader");
+    loader.classList.toggle("invisible");
     let response;
     if(!githubToken){
       response = await axios.get(`https://api.github.com/orgs/${organization}/repos?per_page=100`);
@@ -136,9 +141,10 @@ function App() {
             <a target="_blank" rel="noopener noreferrer" href="https://github.com/settings/tokens">Crie seu token aqui.</a>
           </div>
 
-          <button type="submit" onClick={fetchData}>Gerar MST</button>
+          <button id="gerar" type="submit" disabled={false} onClick={fetchData}>Gerar MST</button>
         </form>
       </div>
+      <Loader/>
       <div id="cy"></div>
     </div>
   );
