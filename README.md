@@ -11,9 +11,8 @@
 ## Sobre 
 Esse projeto é uma evolução do [primeiro trabalho de Projeto de Algoritmos](https://github.com/projeto-de-algoritmos/Grafos1_ProjetosSimilares).
 
-O objetivo desse projeto é a avaliação de projetos similares em Organizações do Github na forma de grafos. Desse modo, os repositórios são representados como nós e as arestas são as linguagens que esses repositórios podem ter em comum.
+O objetivo desse projeto é a avaliação de projetos similares em Organizações do Github na forma de uma **Árvore Geradora Máxima** obtida através do algoritmo de Kruskal aplicado em um grafo gerado anteriormente. Nesse grafo os repositórios são representados como nós e as arestas são as linguagens que esses repositórios podem ter em comum.
 
-Após gerar o grafo, é possível gerar sua **Árvore Geradora Mínima** para verificar quais repositórios tem mais linguagens em comum.
 
 ## Screenshots
 ![Foto Vazia](./images/vazia.png) <br> <br>
@@ -35,12 +34,12 @@ https://nodejs.org/en/
 
 1. Clone o projeto na sua máquina:
 ```
-git clone https://github.com/projeto-de-algoritmos/Grafos1_ProjetosSimilares
+git clone https://github.com/projeto-de-algoritmos/Grafos2_ProjetosSimilares
 ```
 
 2. Entre na pasta do projeto:
 ```
-cd -Grafos2_ProjetosSimilares/projetossimilares
+cd Grafos2_ProjetosSimilares/projetossimilares
 ```
 
 3. Instale as dependências do projeto:
@@ -59,11 +58,7 @@ http://localhost:3000/
 ```
 
 ## Uso 
-Para utilizar o projeto, basta preencher os campos de: nome da organização, data inicial e data final, que funcionam como um filtro de busca.
+Para utilizar o projeto, basta preencher os campos de: nome da organização, data inicial e data final, que funcionam como um filtro de busca. Há a opção de inserir um token de acesso ao GitHub para aumentar o número de requisições disponíveis pela API do Github(sem o token são permitidas 60 por hora e com o token são permitidas 5000 por hora).
 
-## Importante:
-Devido ao limite de requisições do Github, esse projeto funcionará em buscas que retornem no máximo 59 repositórios. Qualquer pesquisa que ultrapasse esse limite resultará no bloqueio do seu IP para novas requisições ao Github por 1 hora.
-
-
-
+Para criar seu token de acesso, entre no [link](https://github.com/settings/tokens) e selecione a opção public_repo e gere o token.
 

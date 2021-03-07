@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './App.css';
 import constructBipartiteGraph from './utils/constructBipartiteGraph';
 import axios from 'axios';
+import Loader from './components/Loader';
 
 function App() {
 
@@ -9,10 +10,22 @@ function App() {
   const [inicialDate, setInicialDate] = useState('');
   const [finalDate, setFinalDate] = useState('');
   const [organization, setOrganization] = useState('');
+  const [githubToken, setGithubToken] = useState('');
 
   async function fetchData(e) {
     e.preventDefault();
-    let response = await axios.get(`https://api.github.com/orgs/${organization}/repos?per_page=100`);
+    const button = document.getElementById("gerar");
+    button.toggleAttribute("disabled");
+    const loader = document.getElementById("loader");
+    loader.classList.toggle("invisible");
+    let response;
+    if(!githubToken){
+      response = await axios.get(`https://api.github.com/orgs/${organization}/repos?per_page=100`);
+    }
+    else {
+      const auth = 'token '.concat(githubToken);
+      response = await axios.get(`https://api.github.com/orgs/${organization}/repos?per_page=100`, { headers: { Authorization: auth } });
+    }
     let next;
     if (response.headers.link) {
       next = parseData(response.headers.link).next;
@@ -61,7 +74,14 @@ function App() {
       filteredRepos = repos;
     }
     for (let repo of filteredRepos) {
-      const response = await axios.get(repo.languages_url);
+      let response;
+      if(!githubToken){
+        response = await axios.get(repo.languages_url);
+      }
+      else{
+        const auth = 'token '.concat(githubToken);
+        response = await axios.get(repo.languages_url, { headers: { Authorization: auth } });
+      }
       languages = Object.keys(response.data);
       mappedRepos.push({name: repo.name, languages: languages})
     }
@@ -106,10 +126,25 @@ function App() {
               onChange={(e) => { setFinalDate(e.target.value) }}
             />
           </div>
+          <div className="forminput">
+            <label htmlFor="githubToken">Token de acesso do Github:</label>
+            <input
+              type="password"
+              name="githubToken"
+              id="githubToken"
+              placeholder="Token do Github (Opcional)"
+              value={githubToken}
+              onChange={(e) => { setGithubToken(e.target.value) }}
+            />
+            <p>Máx. Repositórios sem Token: 60</p>
+            <p>Máx. Repositórios com Token: 5000</p>
+            <a target="_blank" rel="noopener noreferrer" href="https://github.com/settings/tokens">Crie seu token aqui.</a>
+          </div>
 
-          <button type="submit" onClick={fetchData}>Gerar grafo</button>
+          <button id="gerar" type="submit" disabled={false} onClick={fetchData}>Gerar MST</button>
         </form>
       </div>
+      <Loader/>
       <div id="cy"></div>
     </div>
   );

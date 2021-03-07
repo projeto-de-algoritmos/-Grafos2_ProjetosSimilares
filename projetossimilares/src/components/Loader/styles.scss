@@ -1,0 +1,74 @@
+/******************************
+ VARIABLES
+******************************/
+
+$circle-size: 90px;
+$animation-speed: 4s;
+
+$border-01-color: #fff;
+$border-01-width: 6px;
+
+$border-02-color: rgba(0,0,0,0.125);
+$border-02-width: $border-01-width;
+
+// Uncomment below to remove second border
+// $border-02-color: transparent;
+// $border-02-width: 0;
+
+$background-color: #6000E6;
+
+/******************************
+ BASE STYLES
+******************************/
+
+*,*:before,*:after{box-sizing:border-box}
+
+.invisible {
+  visibility: hidden;
+}
+
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  margin-top: -45px;
+  margin-left: 45px;
+	display: flex;
+	flex-wrap: nowrap;
+	height: $circle-size;
+	width: $circle-size;
+	border-radius: 50%;
+	box-shadow: inset 0 0 0 $border-02-width $border-02-color;
+	&__panel {
+		overflow: hidden;
+		width: 50%;
+		&--right { transform: rotate(180deg) }
+	}
+	&__line {
+		height: $circle-size;
+		width: $circle-size;
+		animation-name: rotate;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+		animation-duration: $animation-speed;
+		&:before {
+			content: '';
+			display: block;
+			width: $circle-size/2;
+			height: $circle-size;
+			border-top-left-radius: $circle-size + $border-01-width;
+			border-bottom-left-radius: $circle-size + $border-01-width;
+			border: solid $border-01-width $border-01-color;
+			border-right: 0;
+		}
+		&--left { animation-delay: $animation-speed/4 }
+	}
+}
+
+@keyframes rotate {
+	0%   { transform: rotate(0deg) }
+	25%  { transform: rotate(180deg) }
+	50%  { transform: rotate(180deg) }
+	75%  { transform: rotate(360deg) }
+	100% { transform: rotate(360deg) }
+}
